@@ -1,33 +1,81 @@
 package services;
 
-import model.Usuario;
+import model.UsuarioAdmin;
+import model.UsuarioComum;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 public class UsuarioService {
-    private Usuario usuario;
-    private FilmeService filmeService;
-    private AvaliacaoService avaliacaoService;
 
-    public UsuarioService(Usuario usuario, FilmeService filmeService, AvaliacaoService avaliacaoService) {
-        this.usuario = usuario;
-        this.filmeService = filmeService;
-        this.avaliacaoService = avaliacaoService;
+    private List<UsuarioComum> usuariosComum;
+    private UsuarioAdmin usuarioAdmin;
+
+    public UsuarioService() {
+        usuariosComum = new ArrayList<>();
+        // Adicionando um usuário admin fixo
+        usuarioAdmin = new UsuarioAdmin(1, "Admin", "admin@admin.com", "admin");
     }
 
-    // Realizar login
-    public boolean login(String email, String senha) {
-        return usuario.login(email, senha);
+    // Método para registrar um usuário comum
+    public void registrarUsuarioComum() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Digite o nome do usuário: ");
+        String nome = scanner.nextLine();
+
+        System.out.print("Digite o email do usuário: ");
+        String email = scanner.nextLine();
+
+        System.out.print("Digite a senha do usuário: ");
+        String senha = scanner.nextLine();
+
+        UsuarioComum novoUsuario = new UsuarioComum(usuariosComum.size() + 1, nome, email, senha);
+        usuariosComum.add(novoUsuario);
+
+        System.out.println("Usuário comum registrado com sucesso!");
     }
 
-    // Ações específicas do Usuário Comum (listar filmes, avaliar, etc.)
-    public void listarFilmes() {
-        filmeService.listarFilmes().forEach(filme -> System.out.println(filme));
+    // Método de login
+    public String login() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Digite o email: ");
+        String email = scanner.nextLine();
+
+        System.out.print("Digite a senha: ");
+        String senha = scanner.nextLine();
+
+        // Verificando se é o admin
+        if (email.equals(usuarioAdmin.getEmail()) && senha.equals(usuarioAdmin.getSenha())) {
+            return "Login bem-sucedido como Admin!";
+        }
+
+        // Verificando se é um usuário comum
+        for (UsuarioComum usuario : usuariosComum) {
+            if (usuario.getEmail().equals(email) && usuario.getSenha().equals(senha)) {
+                return "Login bem-sucedido como Usuário Comum!";
+            }
+        }
+
+        return "Credenciais inválidas!";
     }
 
-    public void avaliarFilme(int idFilme, double nota) {
-        avaliacaoService.avaliarFilme(idFilme, nota);
+    // Métodos para acessar os menus
+    public void acessarMenu(String tipoUsuario) {
+        if (tipoUsuario.equals("Admin")) {
+            System.out.println("Bem-vindo ao Menu Admin: Aqui você pode cadastrar filmes.");
+        } else if (tipoUsuario.equals("Comum")) {
+            System.out.println("Bem-vindo ao Menu Usuário Comum: Acesso restrito.");
+        }
     }
 
-    public void listarAvaliacoes() {
-        avaliacaoService.listarAvaliacoes().forEach(avaliacao -> System.out.println(avaliacao));
+    public List<UsuarioComum> getUsuariosComum() {
+        return usuariosComum;
+    }
+
+    public UsuarioAdmin getUsuarioAdmin() {
+        return usuarioAdmin;
     }
 }

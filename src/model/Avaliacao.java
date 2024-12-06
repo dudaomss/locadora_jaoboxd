@@ -8,7 +8,6 @@ public class Avaliacao extends AvaliacaoBase {
         this.comentario = comentario;
     }
 
-    // Getters e Setters
     public String getComentario() {
         return comentario;
     }
@@ -19,6 +18,6 @@ public class Avaliacao extends AvaliacaoBase {
 
     @Override
     public String toString() {
-        return "Filme ID: " + idFilme + " - Nota: " + nota + " - ComentÃ¡rio: " + comentario;
+        return "Filme ID: " + getIdFilme() + " - Nota: " + getNota() + " - Comentário: " + comentario;
     }
 }

@@ -1,0 +1,5 @@
+Parasita,2020,Suspense,true
+Rio,2011,Comédia,true
+Anabelle,2013,Terror,true
+Zootopia,2009,Animação,true
+Ela,2017,Drama,true

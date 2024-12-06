@@ -11,13 +11,14 @@ public class UsuarioAdmin extends Usuario implements IGerenciamentoFilmes {
 
     @Override
     public boolean login() {
-        // Implementação do login para o admin
+        // Lógica de login para o admin
+        // Para fins de exemplo, sempre retorna true
         return true;
     }
 
     @Override
     public String toString() {
-        return "Admin: " + nome;
+        return "Admin: " + getNome();  // Usando o getter para nome
     }
 
     @Override
@@ -31,7 +32,6 @@ public class UsuarioAdmin extends Usuario implements IGerenciamentoFilmes {
         return null;
     }
 
-    // Getters e Setters
     @Override
     public int getId() {
         return super.getId();

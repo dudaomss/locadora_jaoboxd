@@ -5,14 +5,14 @@ public abstract class FilmeBase {
     protected String titulo;
     protected int ano;
     protected String genero;
-    protected boolean disponivel;
+    private boolean statusAlugado;
 
     public FilmeBase(int id, String titulo, int ano, String genero) {
         this.id = id;
         this.titulo = titulo;
         this.ano = ano;
         this.genero = genero;
-        this.disponivel = true;
+        this.statusAlugado = true;
     }
 
     public int getId() {
@@ -48,15 +48,19 @@ public abstract class FilmeBase {
     }
 
     public boolean isDisponivel() {
-        return disponivel;
+        return statusAlugado;
     }
 
-    public void setDisponivel(boolean disponivel) {
-        this.disponivel = disponivel;
+    public void setDisponivel(boolean statusAlugado) {
+        this.statusAlugado = statusAlugado;
     }
 
-
-    public abstract boolean verificarDisponibilidade();
-
-    public abstract String toString();
+    @Override
+    public String toString() {
+        return "Filme{" +
+                "titulo='" + titulo + '\'' +
+                ", genero='" + genero + '\'' +
+                ", status=" + (statusAlugado ? "Disponível" : "Alugado") +
+                '}';
+    }
 }

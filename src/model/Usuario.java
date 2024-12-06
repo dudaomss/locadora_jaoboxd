@@ -13,14 +13,8 @@ public abstract class Usuario {
         this.senha = senha;
     }
 
-    // MÃ©todo de login que verifica o email e a senha
-    public boolean login(String email, String senha) {
-        return this.email.equals(email) && this.senha.equals(senha);
-    }
+    public abstract boolean login();  // Método abstrato para login
 
-    public abstract String toString();
-
-    // Getters e Setters
     public int getId() {
         return id;
     }
